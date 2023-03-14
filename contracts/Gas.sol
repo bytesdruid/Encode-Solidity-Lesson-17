@@ -13,18 +13,24 @@ contract Gas {
 
     uint256 highestNumber1;
 
-    function updateNumber(uint256 countValue) public {
+    function updateNumber(uint256 countValue) public { // 1 mem read + 1 storage read + 1 comparison operation
         while (countValue > highestNumber1) {
-            countValue--;
-            highestNumber1++;
+            countValue--; // 1 mem write
+            highestNumber1++; // 1 storage write
         }
-    }
+    } // total ops: 5
 
     uint256 highestNumber2;
 
-    function updateNumberOptimized(uint256 countValue) public {
-        // TODO
-    }
+    function updateNumberOptimized(uint256 countValue) public { 
+        uint256 number = highestNumber2; // 1 mem write
+        while(countValue > number) // 1 mem read + 1 memory read + 1 comparison operation
+        {
+            countValue--; // 1 mem write
+            number++; // 1 mem write
+        }
+        highestNumber2 = number; // 1 mem read + 1 storage write
+    } // total ops: 8
 
     struct Packed {
         uint256 a;
