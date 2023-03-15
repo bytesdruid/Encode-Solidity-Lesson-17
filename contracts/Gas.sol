@@ -13,8 +13,8 @@ contract Gas {
 
     uint256 highestNumber1;
 
-    function updateNumber(uint256 countValue) public { // 1 mem read + 1 storage read + 1 comparison operation
-        while (countValue > highestNumber1) {
+    function updateNumber(uint256 countValue) public { 
+        while (countValue > highestNumber1) { // 1 mem read + 1 storage read + 1 comparison operation
             countValue--; // 1 mem write
             highestNumber1++; // 1 storage write
         }
